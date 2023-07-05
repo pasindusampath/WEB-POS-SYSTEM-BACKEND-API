@@ -2,6 +2,7 @@ package lk.ijse.test.servlet;
 
 import com.google.gson.Gson;
 import lk.ijse.test.dto.custom.CustomerDTO;
+import lk.ijse.test.service.custom.impl.CustomerServiceImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -21,6 +22,7 @@ public class Customer extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         CustomerDTO customerDTO = getCustomer(req);
         System.out.println(customerDTO);
+        new CustomerServiceImpl().add(customerDTO);
     }
 
     @Override
