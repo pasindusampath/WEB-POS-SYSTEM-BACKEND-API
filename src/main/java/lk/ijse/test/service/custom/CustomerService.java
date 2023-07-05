@@ -1,4 +1,7 @@
 package lk.ijse.test.service.custom;
 
-public interface CustomerService {
+import lk.ijse.test.dto.custom.CustomerDTO;
+import lk.ijse.test.service.CrudService;
+
+public interface CustomerService extends CrudService<CustomerDTO,Integer> {
 }

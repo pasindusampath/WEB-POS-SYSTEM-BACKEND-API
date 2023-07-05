@@ -1,6 +1,10 @@
 package lk.ijse.test.service;
 
-public interface CrudService <Type,Id>{
+import lk.ijse.test.dto.SuperDTO;
+
+import java.io.Serializable;
+
+public interface CrudService <Type extends SuperDTO,Id extends Serializable>{
     public Type add(Type type);
     public Type update(Type type);
     public boolean delete(Id type);
