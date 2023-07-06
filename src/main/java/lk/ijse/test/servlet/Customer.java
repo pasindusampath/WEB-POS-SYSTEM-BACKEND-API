@@ -2,7 +2,10 @@ package lk.ijse.test.servlet;
 
 import com.google.gson.Gson;
 import lk.ijse.test.dto.custom.CustomerDTO;
+import lk.ijse.test.service.SuperService;
+import lk.ijse.test.service.custom.CustomerService;
 import lk.ijse.test.service.custom.impl.CustomerServiceImpl;
+import lk.ijse.test.service.util.ServiceFactory;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,8 +14,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 public class Customer extends HttpServlet {
+    CustomerService service = ServiceFactory.getInstance().getService(ServiceFactory.Type.CUSTOMER);
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
@@ -22,7 +27,19 @@ public class Customer extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         CustomerDTO customerDTO = getCustomer(req);
         System.out.println(customerDTO);
-        new CustomerServiceImpl().add(customerDTO);
+        CustomerDTO add = service.add(customerDTO);
+        if (add!=null){
+            resp.setStatus(HttpServletResponse.SC_OK);
+            String s = new Gson().toJson(customerDTO);
+            PrintWriter writer = resp.getWriter();
+            resp.setContentType("application/json");
+            resp.setCharacterEncoding("UTF-8");
+            writer.print(s);
+            writer.flush();
+            return;
+        }
+        resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+
     }
 
     @Override
