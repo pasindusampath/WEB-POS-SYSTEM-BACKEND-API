@@ -1,6 +1,7 @@
 package lk.ijse.test.util;
 
 import lk.ijse.test.dto.custom.CustomerDTO;
+import lk.ijse.test.dto.custom.ItemDTO;
 import lk.ijse.test.entity.custome.Customer;
 import lk.ijse.test.entity.custome.Item;
 
@@ -15,7 +16,15 @@ public class Converter {
                 customer.getMobileNo(), customer.getBirthday(), customer.getGen());
     }
 
-   // public static Item
+    public static Item convert(ItemDTO item) {
+        return new Item(item.getItemCode(), item.getItemName(), item.getItemPrice(), item.getItemQty());
+    }
+
+    public static ItemDTO convert(Item item) {
+        return new ItemDTO(item.getItemCode(), item.getItemName(), item.getItemPrice(), item.getItemQty());
+    }
+
+    // public static Item
 
 
 }
