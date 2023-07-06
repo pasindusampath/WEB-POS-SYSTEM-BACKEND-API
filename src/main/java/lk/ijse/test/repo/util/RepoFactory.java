@@ -1,4 +1,4 @@
-package lk.ijse.test.repo;
+package lk.ijse.test.repo.util;
 
 import lk.ijse.test.repo.custom.CustomerRepo;
 import lk.ijse.test.repo.custom.ItemRepo;
