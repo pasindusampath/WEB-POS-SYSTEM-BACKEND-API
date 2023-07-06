@@ -30,7 +30,7 @@ public class Customer extends HttpServlet {
         CustomerDTO add = service.add(customerDTO);
         if (add!=null){
             resp.setStatus(HttpServletResponse.SC_OK);
-            String s = new Gson().toJson(customerDTO);
+            String s = new Gson().toJson(add);
             PrintWriter writer = resp.getWriter();
             resp.setContentType("application/json");
             resp.setCharacterEncoding("UTF-8");
