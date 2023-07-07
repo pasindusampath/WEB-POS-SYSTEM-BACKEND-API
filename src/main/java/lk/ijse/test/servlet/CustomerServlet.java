@@ -18,7 +18,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-public class Customer extends HttpServlet {
+public class CustomerServlet extends HttpServlet {
 
     CustomerService service = ServiceFactory.getInstance().getService(ServiceFactory.Type.CUSTOMER);
     @Override

@@ -6,7 +6,7 @@
   <display-name>Archetype Created Web Application</display-name>
   <servlet>
     <servlet-name>customer</servlet-name>
-    <servlet-class>lk.ijse.test.servlet.Customer</servlet-class>
+    <servlet-class>lk.ijse.test.servlet.CustomerServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>customer</servlet-name>
