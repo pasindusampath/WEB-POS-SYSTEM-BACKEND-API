@@ -8,6 +8,8 @@ import lk.ijse.test.service.custom.impl.CustomerServiceImpl;
 import lk.ijse.test.service.util.ServiceFactory;
 
 import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -17,10 +19,21 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 public class Customer extends HttpServlet {
+
     CustomerService service = ServiceFactory.getInstance().getService(ServiceFactory.Type.CUSTOMER);
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+        CustomerDTO customerDTO = service.get(getCustomer(req).getId());
+        if(customerDTO!=null){
+            String s = new Gson().toJson(customerDTO);
+            PrintWriter writer = resp.getWriter();
+            resp.setContentType("application/json");
+            resp.setCharacterEncoding("UTF-8");
+            writer.write(s);
+            writer.flush();
+            return;
+        }
+        resp.setStatus(500);
     }
 
     @Override
