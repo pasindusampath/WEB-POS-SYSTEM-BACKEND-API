@@ -8,8 +8,16 @@
     <servlet-name>customer</servlet-name>
     <servlet-class>lk.ijse.test.servlet.CustomerServlet</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>item</servlet-name>
+    <servlet-class>lk.ijse.test.servlet.ItemServlet</servlet-class>
+  </servlet>
   <servlet-mapping>
     <servlet-name>customer</servlet-name>
     <url-pattern>/customer</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>item</servlet-name>
+    <url-pattern>/item</url-pattern>
   </servlet-mapping>
 </web-app>
