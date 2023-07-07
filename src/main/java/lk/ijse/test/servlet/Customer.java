@@ -25,15 +25,10 @@ public class Customer extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         CustomerDTO customerDTO = service.get(getCustomer(req).getId());
         if(customerDTO!=null){
-            String s = new Gson().toJson(customerDTO);
-            PrintWriter writer = resp.getWriter();
-            resp.setContentType("application/json");
-            resp.setCharacterEncoding("UTF-8");
-            writer.write(s);
-            writer.flush();
+            sendJsonToClient(resp,customerDTO);
             return;
         }
-        resp.setStatus(500);
+        resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
     }
 
     @Override
@@ -42,13 +37,7 @@ public class Customer extends HttpServlet {
         System.out.println(customerDTO);
         CustomerDTO add = service.add(customerDTO);
         if (add!=null){
-            resp.setStatus(HttpServletResponse.SC_OK);
-            String s = new Gson().toJson(add);
-            PrintWriter writer = resp.getWriter();
-            resp.setContentType("application/json");
-            resp.setCharacterEncoding("UTF-8");
-            writer.print(s);
-            writer.flush();
+            sendJsonToClient(resp,add);
             return;
         }
         resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
@@ -57,12 +46,22 @@ public class Customer extends HttpServlet {
 
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doPut(req, resp);
+        CustomerDTO customer = getCustomer(req);
+        CustomerDTO update = service.update(customer);
+        if(update!=null){
+            resp.setStatus(HttpServletResponse.SC_OK);
+            return;
+        }
+        resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
     }
 
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doDelete(req, resp);
+        if(service.delete(getCustomer(req).getId())){
+            resp.setStatus(HttpServletResponse.SC_OK);
+            return;
+        }
+        resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
     }
 
 
@@ -77,5 +76,13 @@ public class Customer extends HttpServlet {
         return gson.fromJson(builder.toString(),CustomerDTO.class);
     }
 
-
+    public void sendJsonToClient(HttpServletResponse resp,CustomerDTO data) throws IOException {
+        resp.setStatus(HttpServletResponse.SC_OK);
+        String s = new Gson().toJson(data);
+        PrintWriter writer = resp.getWriter();
+        resp.setContentType("application/json");
+        resp.setCharacterEncoding("UTF-8");
+        writer.print(s);
+        writer.flush();
+    }
 }
