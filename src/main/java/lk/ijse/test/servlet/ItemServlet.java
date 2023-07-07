@@ -29,11 +29,11 @@ public class ItemServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        ItemDTO itemDTO = service.get(Integer.parseInt(req.getParameter("id")));
+        ItemDTO itemDTO = service.get(Integer.parseInt(req.getParameter("itemCode")));
         if(itemDTO!=null){
             sendToClients(resp,itemDTO);
         }else {
-            resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            resp.setStatus(402);
         }
     }
 
@@ -41,19 +41,19 @@ public class ItemServlet extends HttpServlet {
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         ItemDTO update = service.update(getItem(req));
         if(update!=null){
-            sendToClients(resp,update);
+            resp.setStatus(200);
         }else {
-            resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            resp.setStatus(402);
         }
     }
 
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        boolean delete = service.delete(Integer.parseInt(req.getParameter("id")));
+        boolean delete = service.delete(Integer.parseInt(req.getParameter("itemCode")));
         if(delete){
             resp.setStatus(HttpServletResponse.SC_OK);
         }else {
-            resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            resp.setStatus(402);
         }
     }
 
