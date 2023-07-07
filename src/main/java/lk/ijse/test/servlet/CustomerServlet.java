@@ -56,7 +56,7 @@ public class CustomerServlet extends HttpServlet {
 
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        if(service.delete(getCustomer(req).getId())){
+        if(service.delete(Integer.parseInt(req.getParameter("id")))){
             resp.setStatus(HttpServletResponse.SC_OK);
             return;
         }
