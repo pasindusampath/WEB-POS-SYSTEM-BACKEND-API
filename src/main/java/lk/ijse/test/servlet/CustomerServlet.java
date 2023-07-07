@@ -22,7 +22,7 @@ public class CustomerServlet extends HttpServlet {
     CustomerService service = ServiceFactory.getInstance().getService(ServiceFactory.Type.CUSTOMER);
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        CustomerDTO customerDTO = service.get(getCustomer(req).getId());
+        CustomerDTO customerDTO = service.get(Integer.parseInt(req.getParameter("id")));
         if(customerDTO!=null){
             sendJsonToClient(resp,customerDTO);
             return;
