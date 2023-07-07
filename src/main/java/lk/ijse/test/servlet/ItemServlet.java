@@ -29,7 +29,7 @@ public class ItemServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        ItemDTO itemDTO = service.get((getItem(req)).getItemCode());
+        ItemDTO itemDTO = service.get(Integer.parseInt(req.getParameter("id")));
         if(itemDTO!=null){
             sendToClients(resp,itemDTO);
         }else {
@@ -49,7 +49,7 @@ public class ItemServlet extends HttpServlet {
 
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        boolean delete = service.delete(getItem(req).getItemCode());
+        boolean delete = service.delete(Integer.parseInt(req.getParameter("id")));
         if(delete){
             resp.setStatus(HttpServletResponse.SC_OK);
         }else {
