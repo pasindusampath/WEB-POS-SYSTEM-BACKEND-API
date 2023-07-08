@@ -1,12 +1,14 @@
 package lk.ijse.test.service.custom.impl;
 
 import lk.ijse.test.dto.custom.ItemDTO;
-import lk.ijse.test.entity.custome.Item;
+import lk.ijse.test.entity.custom.Item;
 import lk.ijse.test.service.custom.ItemService;
 import lk.ijse.test.util.Converter;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class ItemServiceImpl implements ItemService {
@@ -71,5 +73,17 @@ public class ItemServiceImpl implements ItemService {
             return Converter.convert(item);
         }
         return null;
+    }
+
+    @Override
+    public List<ItemDTO> getAll() {
+        List<ItemDTO> list = new ArrayList<>();
+        try (Session session = factory.getSession();){
+            List<Item> all = repo.getAll(session);
+            for (Item ob : all) {
+                list.add(Converter.convert(ob));
+            }
+        }
+        return list;
     }
 }

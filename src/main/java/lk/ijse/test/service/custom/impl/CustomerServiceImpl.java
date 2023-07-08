@@ -1,15 +1,14 @@
 package lk.ijse.test.service.custom.impl;
 
-import lk.ijse.test.db.FactoryConfiguration;
 import lk.ijse.test.dto.custom.CustomerDTO;
-import lk.ijse.test.entity.custome.Customer;
-import lk.ijse.test.repo.custom.CustomerRepo;
-import lk.ijse.test.repo.custom.impl.CustomerRepoImpl;
-import lk.ijse.test.repo.util.RepoFactory;
+import lk.ijse.test.entity.custom.Customer;
 import lk.ijse.test.service.custom.CustomerService;
 import lk.ijse.test.util.Converter;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class CustomerServiceImpl implements CustomerService {
 
@@ -74,5 +73,15 @@ public class CustomerServiceImpl implements CustomerService {
             e.printStackTrace();
         }
         return null;
+    }
+
+    @Override
+    public List<CustomerDTO> getAll() {
+        Session session = factory.getSession();
+        List<Customer> all = repo.getAll(session);
+        List<CustomerDTO> list = new ArrayList<>();
+        all.forEach(c->list.add(new CustomerDTO(c.getId(),c.getName()
+                ,c.getAddress(),c.getMobileNo(),c.getBirthday(),c.getGen())));
+        return list;
     }
 }
