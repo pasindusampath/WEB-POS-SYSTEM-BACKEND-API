@@ -1,6 +1,6 @@
 package lk.ijse.test.repo.custom.impl;
 
-import lk.ijse.test.entity.custome.Item;
+import lk.ijse.test.entity.custom.Item;
 import lk.ijse.test.repo.custom.ItemRepo;
 import org.hibernate.Session;
 

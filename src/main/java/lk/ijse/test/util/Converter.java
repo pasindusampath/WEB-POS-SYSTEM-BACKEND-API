@@ -2,8 +2,8 @@ package lk.ijse.test.util;
 
 import lk.ijse.test.dto.custom.CustomerDTO;
 import lk.ijse.test.dto.custom.ItemDTO;
-import lk.ijse.test.entity.custome.Customer;
-import lk.ijse.test.entity.custome.Item;
+import lk.ijse.test.entity.custom.Customer;
+import lk.ijse.test.entity.custom.Item;
 
 public class Converter {
     public static CustomerDTO convert(Customer customer){
