@@ -1,7 +1,7 @@
 package lk.ijse.test.db;
 
-import lk.ijse.test.entity.custome.Customer;
-import lk.ijse.test.entity.custome.Item;
+import lk.ijse.test.entity.custom.Customer;
+import lk.ijse.test.entity.custom.Item;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;

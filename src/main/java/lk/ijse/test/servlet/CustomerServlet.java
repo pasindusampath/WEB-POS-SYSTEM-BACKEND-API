@@ -17,14 +17,27 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 
 public class CustomerServlet extends HttpServlet {
     CustomerService service = ServiceFactory.getInstance().getService(ServiceFactory.Type.CUSTOMER);
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        CustomerDTO customerDTO = service.get(Integer.parseInt(req.getParameter("id")));
-        if(customerDTO!=null){
-            sendJsonToClient(resp,customerDTO);
+        String type = req.getParameter("type");
+        if(type==null){
+            CustomerDTO customerDTO = service.get(Integer.parseInt(req.getParameter("id")));
+            if(customerDTO!=null){
+                sendJsonToClient(resp,customerDTO);
+                return;
+            }
+        }else {
+            List<CustomerDTO> all = service.getAll();
+            String s = new Gson().toJson(all);
+            resp.setContentType("application/json");
+            resp.setCharacterEncoding("UTF-8");
+            PrintWriter writer = resp.getWriter();
+            writer.write(s);
+            writer.flush();
             return;
         }
         resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);

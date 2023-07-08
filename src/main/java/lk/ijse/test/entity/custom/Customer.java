@@ -1,4 +1,4 @@
-package lk.ijse.test.entity.custome;
+package lk.ijse.test.entity.custom;
 
 import lk.ijse.test.entity.SuperEntity;
 import lombok.AllArgsConstructor;

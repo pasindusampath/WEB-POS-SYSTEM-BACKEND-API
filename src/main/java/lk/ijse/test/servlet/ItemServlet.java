@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 
 public class ItemServlet extends HttpServlet {
     ItemService service = ServiceFactory.getInstance().getService(ServiceFactory.Type.ITEM);
@@ -29,11 +30,22 @@ public class ItemServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        ItemDTO itemDTO = service.get(Integer.parseInt(req.getParameter("itemCode")));
-        if(itemDTO!=null){
-            sendToClients(resp,itemDTO);
-        }else {
-            resp.setStatus(402);
+        String type = req.getParameter("type");
+        if(type==null){
+            ItemDTO itemDTO = service.get(Integer.parseInt(req.getParameter("itemCode")));
+            if(itemDTO!=null){
+                sendToClients(resp,itemDTO);
+            }else {
+                resp.setStatus(402);
+            }
+        }else{
+            PrintWriter writer = resp.getWriter();
+            List<ItemDTO> all = service.getAll();
+            String s = new Gson().toJson(all);
+            resp.setContentType("application/json");
+            resp.setCharacterEncoding("UTF-8");
+            writer.write(s);
+            writer.flush();
         }
     }
 
