@@ -13,7 +13,7 @@ public class Converter {
 
     public static Customer convert(CustomerDTO customer){
         return new Customer(customer.getId(), customer.getName(), customer.getAddress(),
-                customer.getMobileNo(), customer.getBirthday(), customer.getGen());
+                customer.getMobileNo(), customer.getBirthday(), customer.getGen(),null);
     }
 
     public static Item convert(ItemDTO item) {

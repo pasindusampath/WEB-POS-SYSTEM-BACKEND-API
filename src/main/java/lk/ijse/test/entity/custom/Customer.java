@@ -5,10 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -23,4 +21,7 @@ public class Customer implements SuperEntity {
     private String mobileNo;
     private String birthday;
     private String gen;
+
+    @OneToMany(targetEntity = Order.class,mappedBy = "id")
+    private List<Order> orders;
 }
