@@ -8,11 +8,9 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ItemDTO implements SuperDTO {
-    private int itemCode;
-    private String itemName;
-    private double itemPrice;
-    private int itemQty;
-
-
+public class OrderItemDto implements SuperDTO {
+    private int id;
+    private int qty;
+    private OrderDto order;
+    private ItemDTO item;
 }

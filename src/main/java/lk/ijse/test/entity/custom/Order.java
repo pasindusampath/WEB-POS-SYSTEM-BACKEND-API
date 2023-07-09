@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.List;
 
 @Entity(name = "orders")
 @Data
@@ -18,6 +19,8 @@ public class Order implements SuperEntity {
     private int id;
     private Date orderDate;
     private double total;
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne(cascade = CascadeType.DETACH)
     private Customer customer;
+    @OneToMany(targetEntity = OrderItem.class,mappedBy = "order")
+    private List<OrderItem> list;
 }

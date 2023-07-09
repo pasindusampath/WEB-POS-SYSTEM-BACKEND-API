@@ -24,6 +24,5 @@ public class Customer implements SuperEntity {
 
     @OneToMany(targetEntity = Order.class,mappedBy = "id")
     private List<Order> orders;
-    @OneToMany(targetEntity = OrderItem.class,mappedBy = "customer")
-    private List<OrderItem> list;
+
 }

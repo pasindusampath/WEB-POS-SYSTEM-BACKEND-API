@@ -16,8 +16,8 @@ public class Item implements SuperEntity {
     @Id@GeneratedValue(strategy = GenerationType.IDENTITY)
     private int itemCode;
     private String itemName;
-    private String itemPrice;
-    private String itemQty;
+    private double itemPrice;
+    private int itemQty;
 
     @OneToMany(targetEntity = OrderItem.class,mappedBy = "item")
     private List<OrderItem> list;
