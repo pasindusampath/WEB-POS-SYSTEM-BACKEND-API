@@ -3,7 +3,11 @@ package lk.ijse.test.servlet;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.reflect.TypeToken;
+import lk.ijse.test.dto.custom.OrderDto;
 import lk.ijse.test.dto.custom.ReceiveOrderDTO;
+import lk.ijse.test.service.SuperService;
+import lk.ijse.test.service.custom.OrderService;
+import lk.ijse.test.service.util.ServiceFactory;
 import lk.ijse.test.tm.CartTM;
 
 import javax.servlet.ServletException;
@@ -14,13 +18,14 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.lang.reflect.Type;
+import java.time.LocalDate;
 import java.util.List;
 
 @WebServlet(name = "placeOrder",urlPatterns = "/place")
 public class PlaceOrderServlet extends HttpServlet {
+    OrderService service = ServiceFactory.getInstance().getService(ServiceFactory.Type.ORDER);
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
 
         BufferedReader reader = req.getReader();
         StringBuilder builder = new StringBuilder();
@@ -31,7 +36,8 @@ public class PlaceOrderServlet extends HttpServlet {
         System.out.println(builder);
         ReceiveOrderDTO receiveOrderDTO = new Gson().fromJson(builder.toString(), ReceiveOrderDTO.class);
         System.out.println(receiveOrderDTO);
-
+        OrderDto orderDto = new OrderDto(0, LocalDate.now(), receiveOrderDTO.getCustomer());
+        service.add(orderDto);
         //List<CartTM> yourList = new Gson().fromJson(builder.toString(), listType);
         //for (CartTM ob : yourList){
         //    System.out.println(ob);
