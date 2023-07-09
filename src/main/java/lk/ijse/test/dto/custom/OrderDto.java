@@ -14,6 +14,6 @@ import java.time.LocalDate;
 public class OrderDto implements SuperDTO {
     private int id;
     private LocalDate date;
-
+    private double total;
     private CustomerDTO customer;
 }

@@ -17,7 +17,7 @@ public class Order implements SuperEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private Date orderDate;
-
+    private double total;
     @ManyToOne(cascade = CascadeType.PERSIST)
     private Customer customer;
 }

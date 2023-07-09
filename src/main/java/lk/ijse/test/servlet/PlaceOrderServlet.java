@@ -36,7 +36,7 @@ public class PlaceOrderServlet extends HttpServlet {
         System.out.println(builder);
         ReceiveOrderDTO receiveOrderDTO = new Gson().fromJson(builder.toString(), ReceiveOrderDTO.class);
         System.out.println(receiveOrderDTO);
-        OrderDto orderDto = new OrderDto(0, LocalDate.now(), receiveOrderDTO.getCustomer());
+        OrderDto orderDto = new OrderDto(0, LocalDate.now(), 0,receiveOrderDTO.getCustomer());
         service.add(orderDto);
         //List<CartTM> yourList = new Gson().fromJson(builder.toString(), listType);
         //for (CartTM ob : yourList){

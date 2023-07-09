@@ -13,4 +13,6 @@ public class ItemDTO implements SuperDTO {
     private String itemName;
     private String itemPrice;
     private String itemQty;
+
+
 }
