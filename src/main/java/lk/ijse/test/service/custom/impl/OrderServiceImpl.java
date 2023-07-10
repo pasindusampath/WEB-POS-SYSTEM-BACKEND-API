@@ -67,6 +67,8 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public boolean add(OrderDto order, List<OrderItemDto> items) {
         Order orderEntity = Converter.convert(order);
+        Customer customer = Converter.convert(order.getCustomer());
+        orderEntity.setCustomer(customer);
         ArrayList<OrderItem> list = new ArrayList<>();
         ArrayList<Item> itemList = new ArrayList<>();
         items.stream().forEach(e->{
