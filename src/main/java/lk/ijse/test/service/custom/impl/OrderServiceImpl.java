@@ -12,10 +12,12 @@ import lk.ijse.test.repo.custom.OrderItemRepo;
 import lk.ijse.test.repo.custom.OrderRepo;
 import lk.ijse.test.repo.util.RepoFactory;
 import lk.ijse.test.service.custom.OrderService;
+import lk.ijse.test.tm.ChartTM;
 import lk.ijse.test.util.Converter;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -110,5 +112,18 @@ public class OrderServiceImpl implements OrderService {
             e.printStackTrace();
         }
         return -1;
+    }
+
+    @Override
+    public List<ChartTM> getMonthlyIncome() {
+        List<ChartTM> items = new ArrayList<>();
+        try (Session session = factory.getSession()){
+            repo.getMonthlyIncome(session).forEach((i,e)->{
+                items.add(new ChartTM(Month.of(i).toString(),e));
+            });
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return items;
     }
 }
