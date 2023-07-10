@@ -34,4 +34,9 @@ public class CustomerRepoImpl implements CustomerRepo {
     public List<Customer> getAll(Session session) {
         return session.createQuery("FROM Customer").list();
     }
+
+    @Override
+    public int getCustomerCount(Session session){
+        return Integer.parseInt(session.createQuery("SELECT COUNT(*) FROM Customer").getSingleResult().toString());
+    }
 }

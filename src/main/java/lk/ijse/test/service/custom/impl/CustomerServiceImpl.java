@@ -84,4 +84,14 @@ public class CustomerServiceImpl implements CustomerService {
                 ,c.getAddress(),c.getMobileNo(),c.getBirthday(),c.getGen())));
         return list;
     }
+
+    @Override
+    public int getCustomerCount() {
+        try(Session session=factory.getSession()) {
+            return repo.getCustomerCount(session);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return -1;
+    }
 }
