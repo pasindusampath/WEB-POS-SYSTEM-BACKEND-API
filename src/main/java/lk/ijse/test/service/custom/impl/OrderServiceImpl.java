@@ -101,4 +101,14 @@ public class OrderServiceImpl implements OrderService {
 
         return false;
     }
+
+    @Override
+    public int getOrderCount() {
+        try (Session session = factory.getSession()) {
+            return repo.getOrderCount(session);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return -1;
+    }
 }

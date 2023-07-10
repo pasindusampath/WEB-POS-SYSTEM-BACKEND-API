@@ -5,6 +5,7 @@ import lk.ijse.test.repo.custom.OrderRepo;
 import org.hibernate.Session;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.List;
 
 public class OrderRepoImpl implements OrderRepo {
@@ -33,5 +34,10 @@ public class OrderRepoImpl implements OrderRepo {
     @Override
     public List<Order> getAll(Session session) {
         return null;
+    }
+
+    @Override
+    public int getOrderCount(Session session){
+        return Integer.parseInt(session.createQuery("SELECT count(*) FROM orders o where Month(o.orderDate)="+LocalDate.now().getMonthValue() ).getSingleResult().toString());
     }
 }

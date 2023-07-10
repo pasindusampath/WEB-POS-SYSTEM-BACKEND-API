@@ -21,6 +21,6 @@ public class Order implements SuperEntity {
     private double total;
     @ManyToOne(cascade = CascadeType.DETACH)
     private Customer customer;
-    @OneToMany(targetEntity = OrderItem.class,mappedBy = "order")
+    @OneToMany(targetEntity = OrderItem.class,mappedBy = "order",cascade = CascadeType.REMOVE)
     private List<OrderItem> list;
 }

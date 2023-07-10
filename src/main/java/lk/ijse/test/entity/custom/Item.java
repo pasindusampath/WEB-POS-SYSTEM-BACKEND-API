@@ -19,6 +19,6 @@ public class Item implements SuperEntity {
     private double itemPrice;
     private int itemQty;
 
-    @OneToMany(targetEntity = OrderItem.class,mappedBy = "item")
+    @OneToMany(targetEntity = OrderItem.class,mappedBy = "item",cascade = CascadeType.REMOVE)
     private List<OrderItem> list;
 }
