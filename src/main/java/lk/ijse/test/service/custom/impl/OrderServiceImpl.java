@@ -13,12 +13,14 @@ import lk.ijse.test.repo.custom.OrderRepo;
 import lk.ijse.test.repo.util.RepoFactory;
 import lk.ijse.test.service.custom.OrderService;
 import lk.ijse.test.tm.ChartTM;
+import lk.ijse.test.tm.LineChartTM;
 import lk.ijse.test.util.Converter;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import java.time.Month;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class OrderServiceImpl implements OrderService {
@@ -125,5 +127,24 @@ public class OrderServiceImpl implements OrderService {
             e.printStackTrace();
         }
         return items;
+    }
+
+    @Override
+    public List<LineChartTM> getItemCountForDay() {
+        List<LineChartTM> list = new ArrayList<>();
+        try(Session session=factory.getSession()) {
+            HashMap<Integer, Double> itemCountForDay = repo.getItemCountForDay(session);
+            for (int i = 1; i < 13; i++) {
+                if(!itemCountForDay.containsKey(i)){
+                    itemCountForDay.put(i,0.0);
+                }
+            }
+            itemCountForDay.forEach((i,e)->{
+                list.add(new LineChartTM(Month.of(i).toString(),e));
+            });
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return list;
     }
 }

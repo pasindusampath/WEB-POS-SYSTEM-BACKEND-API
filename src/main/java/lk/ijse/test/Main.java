@@ -8,10 +8,10 @@ import java.time.Month;
 
 public class Main {
     public static void main(String[] args) {
-        /*FactoryConfiguration instance = FactoryConfiguration.getInstance();
+        FactoryConfiguration instance = FactoryConfiguration.getInstance();
         //System.out.println(new OrderRepoImpl().getOrderCount(instance.getSession()));
-        new OrderRepoImpl().getMonthlyIncome(instance.getSession());*/
-        Month m = Month.of(1);
-        System.out.println(m.toString());
+        new OrderRepoImpl().getItemCountForDay(instance.getSession());
+        //Month m = Month.of(1);
+        //System.out.println(m.toString());
     }
 }

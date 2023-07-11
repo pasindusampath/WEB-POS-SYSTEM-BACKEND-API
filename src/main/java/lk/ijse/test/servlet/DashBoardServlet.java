@@ -44,5 +44,12 @@ public class DashBoardServlet extends HttpServlet {
             writer.write(s);
             writer.flush();
         }
+        if(type.equals("soldItems")){
+            String data = new Gson().toJson(ob.getItemCountForDay());
+            resp.setContentType("application/json");
+            PrintWriter writer = resp.getWriter();
+            writer.write(data);
+            writer.flush();
+        }
     }
 }

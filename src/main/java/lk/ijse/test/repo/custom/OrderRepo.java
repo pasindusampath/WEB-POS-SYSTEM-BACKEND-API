@@ -9,4 +9,5 @@ import java.util.HashMap;
 public interface OrderRepo extends CrudRepo<Order,Integer> {
     public int getOrderCount(Session session);
     public HashMap<Integer,Double> getMonthlyIncome(Session session);
+    public HashMap<Integer, Double> getItemCountForDay(Session session);
 }

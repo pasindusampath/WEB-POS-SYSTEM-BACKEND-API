@@ -10,6 +10,7 @@ import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.function.Function;
 
 public class OrderRepoImpl implements OrderRepo {
     @Override
@@ -55,4 +56,19 @@ public class OrderRepoImpl implements OrderRepo {
         });
         return map;
     }
+
+    @Override
+    public HashMap<Integer, Double> getItemCountForDay(Session session){
+        Query<Object[]> query = session.createQuery("SELECT SUM(oi.qty),Month(oi.order.orderDate) FROM OrderIt" +
+                "em oi where Year(oi.order.orderDate)=:year group by Month(oi.order.orderDate)", Object[].class);
+        query.setParameter("year",LocalDate.now().getYear());
+        List<Object[]> list = query.list();
+        System.out.println(list);
+        HashMap<Integer, Double> hm = new HashMap<>();
+        list.stream().forEach((objects -> {
+            hm.put(Integer.parseInt(objects[1].toString()),Double.parseDouble(objects[0].toString()));
+        }));
+        return hm;
+    }
+
 }
