@@ -22,7 +22,7 @@ public class Customer implements SuperEntity {
     private String birthday;
     private String gen;
 
-    @OneToMany(targetEntity = Order.class,mappedBy = "id")
+    @OneToMany(targetEntity = Order.class,mappedBy = "id",cascade = CascadeType.REMOVE)
     private List<Order> orders;
 
 }
